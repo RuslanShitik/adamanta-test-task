@@ -1,4 +1,11 @@
-# Installation Guide
+# Adamanta Test Task
+
+This project is a Django-based web application designed to handle refund requests for customer orders. It allows users
+to register, authenticate, and submit refund requests through a user-friendly interface. Administrators can log in to
+review, manage, and process submitted requests efficiently via the built-in admin panel. The system includes validation,
+status tracking, and role-based access to streamline the refund process.
+
+## Installation Guide
 
 1. Clone the repository:
    ```bash
