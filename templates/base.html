@@ -11,10 +11,7 @@
 <header class="border-bottom bg-light">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center py-3">
-      <!-- Заголовок слева -->
       <h1 class="h4 mb-0"><a href="{% url 'refund_list' %}" class="text-decoration-none text-reset">Refunds App</a></h1>
-
-      <!-- Кнопки справа -->
       <div>
         {% if user.is_authenticated %}
         <form method="post" action="{% url 'logout' %}" class="d-inline">

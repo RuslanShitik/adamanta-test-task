@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'import_export',
 
     'accounts.apps.AccountsConfig',
     'refunds.apps.RefundsConfig',
