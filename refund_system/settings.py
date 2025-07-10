@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'accounts.apps.AccountsConfig',
     'refunds.apps.RefundsConfig',
 ]
@@ -132,8 +134,10 @@ LOGIN_REDIRECT_URL = reverse_lazy('refund_list')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "cache",
+        "TIMEOUT": 60 * 60 * 24,
     }
 }
 

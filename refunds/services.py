@@ -13,11 +13,13 @@ class IBANService:
 
         cache_key = f"iban_valid_{iban}"
         cached_result = cache.get(cache_key)
-        if cached_result:
+        if cached_result is not None:
             return cached_result
 
         response = requests.get(f"{cls.api_url}/validate/{iban}", params={"api_key": cls.api_key})
-        return False if response.status_code != 200 else True
+        result = False if response.status_code != 200 else True
+        cache.set(cache_key, result)
+        return result
 
     @classmethod
     def format_iban(cls, iban):
