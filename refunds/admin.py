@@ -5,5 +5,6 @@ from .models import RefundRequest
 
 @admin.register(RefundRequest)
 class RefundRequestAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('status', 'created_at', 'country')
+    readonly_fields = ('created_at', 'updated_at')
 
