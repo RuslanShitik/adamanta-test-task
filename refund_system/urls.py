@@ -15,7 +15,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),
+    path('accounts/logout/', LogoutView.as_view(next_page='login'), name='logout'),
 
     path('refunds/', RefundRequestListView.as_view(), name='refund_list'),
     path('refunds/create/', CreateRefundRequestView.as_view(), name='create_refund'),
