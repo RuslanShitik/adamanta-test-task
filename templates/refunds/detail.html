@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Refund Request #{{ object.id }}</h2>
+    <a href="{% url 'refund_list' %}" class="btn btn-secondary">Back to List</a>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Order Information</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Order Number:</strong> {{ object.order_number }}</p>
+          <p><strong>Order Date:</strong> {{ object.order_date }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Customer Information</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Name:</strong> {{ object.first_name }} {{ object.last_name }}</p>
+          <p><strong>Phone:</strong> {{ object.phone_number }}</p>
+          <p><strong>Email:</strong> {{ object.email }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Shipping Address</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Country:</strong> {{ object.country }}</p>
+          <p><strong>City:</strong> {{ object.city }}</p>
+          <p><strong>Postal Code:</strong> {{ object.postal_code }}</p>
+          <p><strong>Address:</strong> {{ object.address }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Refund Details</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Products:</strong><br>{{ object.products|linebreaks }}</p>
+          <p><strong>Reason:</strong><br>{{ object.reason|linebreaks }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Bank Information</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Bank Name:</strong> {{ object.bank_name }}</p>
+          <p><strong>Account Type:</strong> {{ object.get_account_type_display }}</p>
+          <p><strong>IBAN:</strong> {{ object.iban }}</p>
+          <p><strong>IBAN Verified:</strong>
+            {% if object.iban_verified %}
+            <span class="badge bg-success">Yes</span>
+            {% else %}
+            <span class="badge bg-secondary">No</span>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Status & Timeline</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Status:</strong>
+            <span class="badge
+              {% if object.status == 'pending' %}bg-warning text-dark
+              {% elif object.status == 'approved' %}bg-success
+              {% elif object.status == 'rejected' %}bg-danger
+              {% endif %}">
+              {{ object.get_status_display }}
+            </span>
+          </p>
+          <p><strong>Created At:</strong> {{ object.created_at|date:"Y-m-d H:i" }}</p>
+          <p><strong>Last Updated:</strong> {{ object.updated_at|date:"Y-m-d H:i" }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

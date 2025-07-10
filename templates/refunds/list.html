@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Refund Requests</h2>
+    <a href="{% url 'create_refund' %}" class="btn btn-success">+ New Refund</a>
+  </div>
+
+  {% if refund_requests %}
+  <div class="list-group">
+    {% for refund in refund_requests %}
+    <a href="{% url 'refund_detail' refund.pk %}" class="list-group-item list-group-item-action mb-3 rounded shadow-sm">
+      <div class="d-flex w-100 justify-content-between align-items-center">
+        <h5 class="mb-1">Refund #{{ refund.id }} — Order #{{ refund.order_number }}</h5>
+        <small class="text-muted">{{ refund.created_at|date:"Y-m-d H:i" }}</small>
+      </div>
+      <p class="mb-1">
+        <strong>Order Date:</strong> {{ refund.order_date }}<br>
+        <strong>Status:</strong>
+        <span class="badge
+              {% if refund.status == 'pending' %} bg-warning text-dark
+              {% elif refund.status == 'approved' %} bg-success
+              {% elif refund.status == 'rejected' %} bg-danger
+              {% endif %}">
+              {{ refund.get_status_display }}
+            </span>
+        &nbsp;&nbsp;
+        <strong>IBAN Verified:</strong>
+        {% if refund.iban_verified %}
+        <span class="badge bg-success">Yes</span>
+        {% else %}
+        <span class="badge bg-secondary">No</span>
+        {% endif %}
+      </p>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No refund requests found.</p>
+  {% endif %}
+
+</div>
+
+{% endblock %}

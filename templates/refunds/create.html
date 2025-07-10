@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            <h1 class="h3 mb-3 fw-normal">Create Refund Request</h1>
+            {% for field in form %}
+            <div class="form-floating my-3">
+              {% if field.field.widget.input_type == "select" %}
+              <select
+                      name="{{ field.html_name }}"
+                      class="form-select{% if field.errors %} is-invalid{% endif %}"
+                      id="{{ field.id_for_label }}"
+                      aria-label="{{ field.label }}"
+              >
+                {% for option in field.field.choices %}
+                <option value="{{ option.0 }}" {% if option.0 == field.value %}selected{% endif %}>
+                  {{ option.1 }}
+                </option>
+                {% endfor %}
+              </select>
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {% else %}
+              <input
+                      type="{{ field.field.widget.input_type|default:'text' }}"
+                      name="{{ field.html_name }}"
+                      class="form-control{% if field.errors %} is-invalid{% endif %}"
+                      id="{{ field.id_for_label }}"
+                      value="{{ field.value|default_if_none:'' }}"
+                      placeholder="{{ field.label }}"
+              />
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {% endif %}
+
+              {% for error in field.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary">Submit Refund Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
